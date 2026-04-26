@@ -1,4 +1,5 @@
 import streamlit as st
+from datetime import datetime
 import pandas as pd
 from app.controller.user_controller import UserController
 
@@ -42,7 +43,8 @@ def render_user_view():
 
         first_name = st.text_input("First Name")
         last_name = st.text_input("Last Name")
-        birth_date = st.text_input("Birth Date", placeholder="YYYY-MM-DD")
+        birth_date = st.date_input("Birth Date")
+        birth_date = birth_date.strftime("%Y-%m-%d")
         birth_place = st.text_input("Birth Place")
         phone_number = st.text_input("Phone Number")
 
@@ -100,7 +102,9 @@ def render_user_view():
 
             first_name = st.text_input("First Name", value=user["first_name"])
             last_name = st.text_input("Last Name", value=user["last_name"])
-            birth_date = st.text_input("Birth Date", value=user["birth_date"])
+            birth_date_value = datetime.strptime(user["birth_date"], "%Y-%m-%d").date()
+            birth_date = st.date_input("Birth Date", value=birth_date_value)
+            birth_date = birth_date.strftime("%Y-%m-%d")
             birth_place = st.text_input("Birth Place", value=user["birth_place"])
             phone_number = st.text_input("Phone Number", value=user["phone_number"])
 
